@@ -1,0 +1,24 @@
+{
+    "name": "cardinity/client-bundle",
+    "description": "Cardinity Credit Card payments bundle for Symfony2",
+    "homepage": "http://www.cardinity.com",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php"			                : ">=5.4.0",
+        "cardinity/cardinity-sdk-php"	: "dev-master",
+        "symfony/validator"             : "~2.6"
+    },
+    "require-dev": {
+        "symfony/http-kernel"                   : "~2.7|~3.0@dev",
+        "symfony/dependency-injection"          : "~2.7|~3.0@dev",
+        "phpunit/phpunit"                       : "~4.4",
+        "matthiasnoback/symfony-config-test"    : "~1.0"
+    },
+    "autoload": {
+        "psr-4": { "Cardinity\\ClientBundle\\": "" }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
