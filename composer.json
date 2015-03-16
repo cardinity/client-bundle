@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php"			                : ">=5.4.0",
-        "cardinity/cardinity-sdk-php"	: "dev-master",
+        "cardinity/cardinity-sdk-php"   : "~1.0",
         "symfony/validator"             : "~2.6"
     },
     "require-dev": {
