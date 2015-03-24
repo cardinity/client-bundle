@@ -37,6 +37,23 @@ class AppKernel extends Kernel
 }
 ```
 
+### Enable credit card processing with 3-D secure DEMO
+Include following lines to `app/config/routing.yml`:
+
+```yaml
+cardinity_client:
+    resource: "@CardinityClientBundle/Resources/config/routing.yml"
+    prefix: /cardinity
+```
+
+And if you are using PHP built-in web server:
+```bash
+    app/console server:run
+```
+
+Try to open browser with address `http://localhost:8000/cardinity`.
+
+
 ## Usage
 ### Services
 This bundle comes with following service which simplifies the

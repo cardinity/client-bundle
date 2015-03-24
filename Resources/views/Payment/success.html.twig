@@ -1,0 +1,8 @@
+{% extends 'CardinityClientBundle::layout.html.twig' %}
+
+{% block body %}
+<h2>Your payment has been successfully processed!</h2>
+<p>Amount: {{ payment.amount }} {{ payment.currency }}<br>
+Description: {{ payment.description }}<br>
+Order ID: {{ payment.orderId }}</p>
+{% endblock %}

@@ -1,0 +1,29 @@
+cardinity_client.payment:
+    path:     /
+    defaults: { _controller: cardinity_client.controller.payment:indexAction }
+    methods:  [GET]
+
+cardinity_client.payment_details:
+    path:     /details
+    defaults: { _controller: cardinity_client.controller.payment:detailsAction }
+    methods:  [GET]
+
+cardinity_client.payment_process:
+    path:     /process
+    defaults: { _controller: cardinity_client.controller.payment:processAction }
+    methods:  [POST]
+
+cardinity_client.payment_begin_authorization:
+    path:     /authorization/begin
+    defaults: { _controller: cardinity_client.controller.payment:beginAuthorizationAction }
+    methods:  [GET]
+
+cardinity_client.payment_process_authorization:
+    path:     /authorization/process
+    defaults: { _controller: cardinity_client.controller.payment:processAuthorizationAction }
+    methods:  [POST]
+
+cardinity_client.payment_success:
+    path:     /success
+    defaults: { _controller: cardinity_client.controller.payment:successAction }
+    methods:  [GET]

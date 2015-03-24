@@ -1,4 +1,5 @@
 parameters:
+    cardinity_client.controller.payment.class: Cardinity\ClientBundle\Controller\PaymentController
     cardinity_client.service.oauth_subscriber.class: GuzzleHttp\Subscriber\Oauth\Oauth1
     cardinity_client.service.log_subscriber.class: GuzzleHttp\Subscriber\Log
     cardinity_client.service.emitter.class: GuzzleHttp\Event\Emitter
@@ -13,6 +14,15 @@ parameters:
       auth: 'oauth'
 
 services:
+    cardinity_client.controller.payment:
+        class: %cardinity_client.controller.payment.class%
+        arguments:
+            - @templating
+            - @router
+            - @form.factory
+            - @session
+            - @cardinity_client.service.client
+
     cardinity_client.service.oauth_subscriber:
       class: %cardinity_client.service.oauth_subscriber.class%
       arguments:
