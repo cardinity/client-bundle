@@ -100,10 +100,7 @@ class PaymentController
                         $this->router->generate('cardinity_client.payment_begin_authorization')
                     );
                 } elseif ($payment->isApproved()) {
-                    return $this->templating->renderResponse(
-                        'CardinityClientBundle:Payment:success.html.twig',
-                        ['payment' => $payment]
-                    );
+                    return $this->successResponse($payment);
                 }
             } catch (Exception\Declined $e) {
                 return $this->errorResponse('Payment declined: ' . print_r($e->getErrors(), true));
@@ -145,7 +142,6 @@ class PaymentController
      */
     public function processAuthorizationAction(Request $request)
     {
-        $message = null;
         $identifier = $request->request->get('MD');
         $pares = $request->request->get('PaRes');
 
@@ -189,10 +185,7 @@ class PaymentController
         $payment->unserialize($this->session->get('cardinity_payment'));
         $this->session->remove('cardinity_payment');
 
-        return $this->templating->renderResponse(
-            'CardinityClientBundle:Payment:success.html.twig',
-            ['payment' => $payment]
-        );
+        return $this->successResponse($payment);
     }
 
     private function renderForm(Form $form)
@@ -222,6 +215,14 @@ class PaymentController
             'payment_method' => Payment\Create::CARD,
             'payment_instrument' => []
         ];
+    }
+
+    private function successResponse($payment)
+    {
+        return $this->templating->renderResponse(
+            'CardinityClientBundle:Payment:success.html.twig',
+            ['payment' => $payment]
+        );
     }
 
     private function errorResponse($message)

@@ -36,7 +36,7 @@ services:
     cardinity_client.service.emitter:
       class: %cardinity_client.service.emitter.class%
       calls:
-        - [attach, ['@cardinity_client.service.oauth_subscriber']]
+        - [attach, ["@cardinity_client.service.oauth_subscriber"]]
 
     cardinity_client.service.http_client:
       class: %cardinity_client.service.http_client.class%
