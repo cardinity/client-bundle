@@ -17,11 +17,11 @@ services:
     cardinity_client.controller.payment:
         class: %cardinity_client.controller.payment.class%
         arguments:
-            - @templating
-            - @router
-            - @form.factory
-            - @session
-            - @cardinity_client.service.client
+            - '@templating'
+            - '@router'
+            - '@form.factory'
+            - '@session'
+            - '@cardinity_client.service.client'
 
     cardinity_client.service.oauth_subscriber:
       class: %cardinity_client.service.oauth_subscriber.class%
@@ -36,7 +36,7 @@ services:
     cardinity_client.service.emitter:
       class: %cardinity_client.service.emitter.class%
       calls:
-        - [attach, ["@cardinity_client.service.oauth_subscriber"]]
+        - [attach, ['@cardinity_client.service.oauth_subscriber']]
 
     cardinity_client.service.http_client:
       class: %cardinity_client.service.http_client.class%
@@ -44,7 +44,7 @@ services:
         config:
           base_url: %cardinity_client.parameters.url%
           defaults: %cardinity_client.parameters.defaults%
-          emitter: @cardinity_client.service.emitter
+          emitter: '@cardinity_client.service.emitter'
 
     cardinity_client.service.result_object_mapper:
       class:  %cardinity_client.service.result_object_mapper.class%
@@ -52,22 +52,22 @@ services:
     cardinity_client.service.exception_mapper:
       class:  %cardinity_client.service.exception_mapper.class%
       arguments:
-        client: @cardinity_client.service.result_object_mapper
+        client: '@cardinity_client.service.result_object_mapper'
 
     cardinity_client.service.client_adapter:
       class: %cardinity_client.service.client_adapter.class%
       arguments:
-        client: @cardinity_client.service.http_client
-        mapper: @cardinity_client.service.exception_mapper
+        client: '@cardinity_client.service.http_client'
+        mapper: '@cardinity_client.service.exception_mapper'
 
     cardinity_client.service.validator:
       class: %cardinity_client.service.validator.class%
       arguments:
-        validator: @validator
+        validator: '@validator'
 
     cardinity_client.service.client:
       class: %cardinity_client.service.client.class%
       arguments:
-        client: @cardinity_client.service.client_adapter
-        validator: @cardinity_client.service.validator
-        mapper: @cardinity_client.service.result_object_mapper
+        client: '@cardinity_client.service.client_adapter'
+        validator: '@cardinity_client.service.validator'
+        mapper: '@cardinity_client.service.result_object_mapper'

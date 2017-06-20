@@ -99,7 +99,14 @@ class PaymentController
                     return new RedirectResponse(
                         $this->router->generate('cardinity_client.payment_begin_authorization')
                     );
+                } elseif ($payment->isApproved()) {
+                    return $this->templating->renderResponse(
+                        'CardinityClientBundle:Payment:success.html.twig',
+                        ['payment' => $payment]
+                    );
                 }
+            } catch (Exception\Declined $e) {
+                return $this->errorResponse('Payment declined: ' . print_r($e->getErrors(), true));
             } catch (Exception\Runtime $e) {
                 return $this->errorResponse('Unexpected error occured: ' . print_r($e, true));
             };
@@ -145,8 +152,7 @@ class PaymentController
         $payment = new Payment\Payment();
         $payment->unserialize($this->session->get('cardinity_payment'));
 
-        if ($payment->getOrderId() != $identifier
-            || $pares != $payment->getDescription()) {
+        if ($payment->getOrderId() != $identifier) {
             return $this->errorResponse('Invalid callback data');
         }
         try {

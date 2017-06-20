@@ -124,9 +124,9 @@ try {
         'payment_method' => Cardinity\Payment\Create::CARD,
         'payment_instrument' => [
             'pan' => '4111111111111111',
-            'exp_year' => 2016,
+            'exp_year' => 2018,
             'exp_month' => 12,
-            'cvc' => 456,
+            'cvc' => '456',
             'holder' => 'Mike Dough'
         ]
     ]));
