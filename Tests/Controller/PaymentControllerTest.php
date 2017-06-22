@@ -50,7 +50,7 @@ class PaymentControllerTest extends WebTestCase
         $form['credit_card[cvc]'] = '123';
         $form['credit_card[_token]'] = $csrfToken;
 
-        $crawler = $this->client->submit($form);
+        $this->client->submit($form);
 
         $this->assertTrue(
             $this->client->getResponse()->isRedirect('/cardinity/authorization/begin')
@@ -70,7 +70,7 @@ class PaymentControllerTest extends WebTestCase
 
         $session->set('cardinity_payment', $payment->serialize());
 
-        $crawler = $this->client->request('GET', '/cardinity/authorization/begin');
+        $this->client->request('GET', '/cardinity/authorization/begin');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
@@ -84,7 +84,7 @@ class PaymentControllerTest extends WebTestCase
         $payment->setDescription('pares_value');
         $session->set('cardinity_payment', $payment->serialize());
 
-        $crawler = $this->client->request('POST', '/cardinity/authorization/process', [
+        $this->client->request('POST', '/cardinity/authorization/process', [
             'MD' => 'identifier_value',
             'PaRes' => 'pares_value',
         ]);

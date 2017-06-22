@@ -105,7 +105,7 @@ class PaymentController
             } catch (Exception\Declined $e) {
                 return $this->errorResponse('Payment declined: ' . print_r($e->getErrors(), true));
             } catch (Exception\Runtime $e) {
-                return $this->errorResponse('Unexpected error occured: ' . print_r($e, true));
+                return $this->errorResponse('Unexpected error occurred: ' . print_r($e, true));
             };
         }
 
@@ -165,7 +165,7 @@ class PaymentController
                 return new RedirectResponse($this->router->generate('cardinity_client.payment_success'));
             }
         } catch (Exception\Runtime $e) {
-            return $this->errorResponse('Unexpected error occured. ' . $e->getMessage() . ': ' . print_r($e->getErrors(), true));
+            return $this->errorResponse('Unexpected error occurred. ' . $e->getMessage() . ': ' . print_r($e->getErrors(), true));
         };
 
         return $this->errorResponse('Unexpected response while finalizing payment');
