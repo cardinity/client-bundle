@@ -13,7 +13,7 @@ env:
 before_script:
   - composer self-update
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/validator:${SYMFONY_VERSION}" --no-update; fi;
-  - composer install --dev
+  - composer install --dev --no-interaction
 
 script:
-   - phpunit
+   - phpunit -c .

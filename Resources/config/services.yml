@@ -26,9 +26,9 @@ services:
     cardinity_client.service.oauth_subscriber:
       class: %cardinity_client.service.oauth_subscriber.class%
       arguments:
-          config:
-              consumer_key: '%cardinity_client.consumer_key%'
-              consumer_secret: '%cardinity_client.consumer_secret%'
+        config:
+          consumer_key: '%cardinity_client.consumer_key%'
+          consumer_secret: '%cardinity_client.consumer_secret%'
 
     cardinity_client.service.log_subscriber:
       class: %cardinity_client.service.log_subscriber.class%
