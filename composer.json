@@ -10,8 +10,8 @@
         "symfony/validator"             : "~2.6"
     },
     "require-dev": {
-        "symfony/http-kernel"                   : "~2.8|~3.0@dev",
-        "symfony/dependency-injection"          : "~2.8|~3.0@dev",
+        "symfony/http-kernel"                   : "~2.8",
+        "symfony/dependency-injection"          : "~2.8",
         "phpunit/phpunit"                       : "~4.4",
         "matthiasnoback/symfony-config-test"    : "~1.0"
     },
