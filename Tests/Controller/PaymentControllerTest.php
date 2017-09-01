@@ -39,7 +39,7 @@ class PaymentControllerTest extends WebTestCase
      */
     public function testProcess($crawler)
     {
-        $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('credit_card');
+        $csrfToken = $this->client->getContainer()->get('security.csrf.token_manager')->getToken('credit_card');
 
         $form = $crawler->selectButton('Save')->form();
 

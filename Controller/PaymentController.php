@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PaymentController
 {
@@ -31,25 +32,31 @@ class PaymentController
     /** @var Client */
     private $payment;
 
+    /** @var ContainerInterface */
+    private $container;
+
     /**
      * @param EngineInterface $templating
      * @param RouterInterface $router
      * @param FormFactoryInterface $formFactory
      * @param SessionInterface $session
      * @param Client $payment
+     * @param ContainerInterface $container
      */
     public function __construct(
         EngineInterface $templating,
         RouterInterface $router,
         FormFactoryInterface $formFactory,
         SessionInterface $session,
-        Client $payment
+        //Client $payment,
+        ContainerInterface $container
     ) {
         $this->templating = $templating;
         $this->router = $router;
         $this->formFactory = $formFactory;
         $this->session = $session;
-        $this->payment = $payment;
+        //$this->payment = $payment;
+        $this->container = $container;
     }
 
     /**
@@ -90,7 +97,14 @@ class PaymentController
             $params['payment_instrument'] = $form->getData();
 
             $method = new Payment\Create($params);
+
             try {
+                // TODO use cardinity_client.service.client
+                $this->payment = Client::create([
+                    'consumerKey' => $this->container->getParameter('cardinity_client.consumer_key'),
+                    'consumerSecret' => $this->container->getParameter('cardinity_client.consumer_secret'),
+                ]);
+
                 /** @var Cardinity\Method\Payment\Payment */
                 $payment = $this->payment->call($method);
                 if ($payment->isPending()) {
@@ -102,10 +116,12 @@ class PaymentController
                 } elseif ($payment->isApproved()) {
                     return $this->successResponse($payment);
                 }
+            } catch (Exception\ValidationFailed $e) {
+                return $this->errorResponse('Payment validation failed: ' . print_r($e->getErrors(), true));
             } catch (Exception\Declined $e) {
                 return $this->errorResponse('Payment declined: ' . print_r($e->getErrors(), true));
             } catch (Exception\Runtime $e) {
-                return $this->errorResponse('Unexpected error occurred: ' . print_r($e, true));
+                return $this->errorResponse('Unexpected error occurred: ' . print_r($e->getPrevious()->getMessage(), true));
             };
         }
 
@@ -157,15 +173,23 @@ class PaymentController
                     $payment->getId(),
                     $pares
                 );
+                // TODO use cardinity_client.service.client
+                $this->payment = Client::create([
+                    'consumerKey' => $this->container->getParameter('cardinity_client.consumer_key'),
+                    'consumerSecret' => $this->container->getParameter('cardinity_client.consumer_secret'),
+                ]);
+
                 /** @var Cardinity\Method\Payment\Payment */
                 $payment = $this->payment->call($method);
             }
-            
+
             if ($payment->isApproved()) {
                 return new RedirectResponse($this->router->generate('cardinity_client.payment_success'));
             }
+        } catch (Exception\Declined $e) {
+                return $this->errorResponse('Payment declined: ' . print_r($e->getErrors(), true));
         } catch (Exception\Runtime $e) {
-            return $this->errorResponse('Unexpected error occurred. ' . $e->getMessage() . ': ' . print_r($e->getErrors(), true));
+            return $this->errorResponse('Unexpected error occurred. ' . $e->getMessage());
         };
 
         return $this->errorResponse('Unexpected response while finalizing payment');
@@ -198,7 +222,7 @@ class PaymentController
 
     private function createForm()
     {
-        return $this->formFactory->create(new CreditCardType(), null, [
+        return $this->formFactory->create(CreditCardType::class, null, [
             'action' => $this->router->generate('cardinity_client.payment_process'),
         ]);
     }

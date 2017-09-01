@@ -1,73 +1,74 @@
 parameters:
     cardinity_client.controller.payment.class: Cardinity\ClientBundle\Controller\PaymentController
     cardinity_client.service.oauth_subscriber.class: GuzzleHttp\Subscriber\Oauth\Oauth1
-    cardinity_client.service.log_subscriber.class: GuzzleHttp\Subscriber\Log
-    cardinity_client.service.emitter.class: GuzzleHttp\Event\Emitter
-    cardinity_client.service.http_client.class: GuzzleHttp\Client
-    cardinity_client.service.result_object_mapper.class: Cardinity\Method\ResultObjectMapper
-    cardinity_client.service.exception_mapper.class: Cardinity\Http\Guzzle\ExceptionMapper
-    cardinity_client.service.client_adapter.class: Cardinity\Http\Guzzle\ClientAdapter
-    cardinity_client.service.client.class: Cardinity\Client
-    cardinity_client.service.validator.class: Cardinity\Method\Validator
-    cardinity_client.parameters.url: 'https://api.cardinity.com/v1/'
-    cardinity_client.parameters.defaults:
-      auth: 'oauth'
+    # cardinity_client.service.log_subscriber.class: GuzzleHttp\Subscriber\Log
+    # cardinity_client.service.emitter.class: GuzzleHttp\Event\Emitter
+    # cardinity_client.service.http_client.class: GuzzleHttp\Client
+    # cardinity_client.service.result_object_mapper.class: Cardinity\Method\ResultObjectMapper
+    # cardinity_client.service.exception_mapper.class: Cardinity\Http\Guzzle\ExceptionMapper
+    # cardinity_client.service.client_adapter.class: Cardinity\Http\Guzzle\ClientAdapter
+    # cardinity_client.service.client.class: Cardinity\Client
+    # cardinity_client.service.validator.class: Cardinity\Method\Validator
+    # cardinity_client.parameters.url: 'https://api.cardinity.com/v1/'
+    # cardinity_client.parameters.defaults:
+    #   auth: 'oauth'
 
 services:
     cardinity_client.controller.payment:
-        class: %cardinity_client.controller.payment.class%
+        class: '%cardinity_client.controller.payment.class%'
         arguments:
-            - '@templating'
-            - '@router'
-            - '@form.factory'
-            - '@session'
-            - '@cardinity_client.service.client'
+          - '@templating'
+          - '@router'
+          - '@form.factory'
+          - '@session'
+    #      - '@cardinity_client.service.client'
+          - '@service_container'
 
     cardinity_client.service.oauth_subscriber:
-      class: %cardinity_client.service.oauth_subscriber.class%
+      class: '%cardinity_client.service.oauth_subscriber.class%'
       arguments:
-        config:
+        $config:
           consumer_key: '%cardinity_client.consumer_key%'
           consumer_secret: '%cardinity_client.consumer_secret%'
 
-    cardinity_client.service.log_subscriber:
-      class: %cardinity_client.service.log_subscriber.class%
+    # cardinity_client.service.log_subscriber:
+    #   class: '%cardinity_client.service.log_subscriber.class%'
 
-    cardinity_client.service.emitter:
-      class: %cardinity_client.service.emitter.class%
-      calls:
-        - [attach, ['@cardinity_client.service.oauth_subscriber']]
+    # cardinity_client.service.emitter:
+    #   class: '%cardinity_client.service.emitter.class%'
+    #   calls:
+    #    - [attach, ['@cardinity_client.service.oauth_subscriber']]
 
-    cardinity_client.service.http_client:
-      class: %cardinity_client.service.http_client.class%
-      arguments:
-        config:
-          base_url: %cardinity_client.parameters.url%
-          defaults: %cardinity_client.parameters.defaults%
-          emitter: '@cardinity_client.service.emitter'
+    # cardinity_client.service.http_client:
+    #  class: '%cardinity_client.service.http_client.class%'
+    #  arguments:
+    #    $config:
+    #      base_url: '%cardinity_client.parameters.url%'
+    #      defaults: '%cardinity_client.parameters.defaults%'
+    #      emitter: '@cardinity_client.service.emitter'
 
-    cardinity_client.service.result_object_mapper:
-      class:  %cardinity_client.service.result_object_mapper.class%
+    # cardinity_client.service.result_object_mapper:
+    #   class: '%cardinity_client.service.result_object_mapper.class%'
 
-    cardinity_client.service.exception_mapper:
-      class:  %cardinity_client.service.exception_mapper.class%
-      arguments:
-        client: '@cardinity_client.service.result_object_mapper'
+    # cardinity_client.service.exception_mapper:
+    #   class: '%cardinity_client.service.exception_mapper.class%'
+    #   arguments:
+    #     $resultMapper: '@cardinity_client.service.result_object_mapper'
 
-    cardinity_client.service.client_adapter:
-      class: %cardinity_client.service.client_adapter.class%
-      arguments:
-        client: '@cardinity_client.service.http_client'
-        mapper: '@cardinity_client.service.exception_mapper'
+    # cardinity_client.service.client_adapter:
+    #   class: '%cardinity_client.service.client_adapter.class%'
+    #   arguments:
+    #     $client: '@cardinity_client.service.http_client'
+    #     $mapper: '@cardinity_client.service.exception_mapper'
 
-    cardinity_client.service.validator:
-      class: %cardinity_client.service.validator.class%
-      arguments:
-        validator: '@validator'
+    # cardinity_client.service.validator:
+    #   class: '%cardinity_client.service.validator.class%'
+    #   arguments:
+    #     $validator: '@validator'
 
-    cardinity_client.service.client:
-      class: %cardinity_client.service.client.class%
-      arguments:
-        client: '@cardinity_client.service.client_adapter'
-        validator: '@cardinity_client.service.validator'
-        mapper: '@cardinity_client.service.result_object_mapper'
+    # cardinity_client.service.client:
+    #   class: '%cardinity_client.service.client.class%'
+    #   arguments:
+    #     $client: '@cardinity_client.service.client_adapter'
+    #     $validator: '@cardinity_client.service.validator'
+    #     $mapper: '@cardinity_client.service.result_object_mapper'

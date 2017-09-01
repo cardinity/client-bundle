@@ -3,6 +3,8 @@ namespace Cardinity\ClientBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\Luhn;
 
 class CreditCardType extends AbstractType
@@ -14,14 +16,14 @@ class CreditCardType extends AbstractType
             ->add('pan', null, [
                 'constraints' => new Luhn(),
             ])
-            ->add('exp_year', 'choice', [
+            ->add('exp_year', ChoiceType::class, [
                 'choices' => $this->years()
             ])
-            ->add('exp_month', 'choice', [
+            ->add('exp_month', ChoiceType::class, [
                 'choices' => $this->months()
             ])
             ->add('cvc')
-            ->add('save', 'submit')
+            ->add('save', SubmitType::class)
         ;
     }
 
