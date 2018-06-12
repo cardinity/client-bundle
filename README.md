@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/cardinity/client-bundle.svg?branch=master)](https://travis-ci.org/cardinity/client-bundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cardinity/client-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cardinity/client-bundle/?branch=master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/2706efcc-de8b-4848-89cc-c1c38f92536d/mini.png)](https://insight.sensiolabs.com/projects/2706efcc-de8b-4848-89cc-c1c38f92536d)
 
 
 ## Installation
