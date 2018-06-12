@@ -18,6 +18,7 @@
     <testsuites>
         <testsuite name="Default">
             <directory>./Tests</directory>
+            <exclude>./Tests/Controller</exclude>
         </testsuite>
     </testsuites>
 </phpunit>
