@@ -19,4 +19,4 @@ before_script:
   - composer install --dev --no-interaction
 
 script:
-   - phpunit -c .
+   - bin/phpunit
