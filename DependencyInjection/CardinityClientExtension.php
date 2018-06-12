@@ -25,7 +25,7 @@ class CardinityClientExtension extends Extension
         $container->setParameter('cardinity_client.consumer_key', $config['consumer_key']);
         $container->setParameter('cardinity_client.consumer_secret', $config['consumer_secret']);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
     }
 }

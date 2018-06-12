@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/cardinity/client-bundle.svg?branch=master)](https://travis-ci.org/cardinity/client-bundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cardinity/client-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cardinity/client-bundle/?branch=master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/2706efcc-de8b-4848-89cc-c1c38f92536d/mini.png)](https://insight.sensiolabs.com/projects/2706efcc-de8b-4848-89cc-c1c38f92536d)
 
 
 ## Installation
@@ -94,9 +93,9 @@ Cardinity\Settlement\GetAll($paymentId)
 
 #### Void
 ```php
-Cardinity\Void\Create($paymentId, $description = null)
-Cardinity\Void\Get($paymentId, $voidId)
-Cardinity\Void\GetAll($paymentId)
+Cardinity\VoidPayment\Create($paymentId, $description = null)
+Cardinity\VoidPayment\Get($paymentId, $voidId)
+Cardinity\VoidPayment\GetAll($paymentId)
 ```
 
 #### Refund
@@ -124,7 +123,7 @@ try {
         'payment_method' => Cardinity\Payment\Create::CARD,
         'payment_instrument' => [
             'pan' => '4111111111111111',
-            'exp_year' => 2018,
+            'exp_year' => 2021,
             'exp_month' => 12,
             'cvc' => '456',
             'holder' => 'Mike Dough'

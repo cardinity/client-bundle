@@ -1,12 +1,13 @@
 <?php
+
 namespace Cardinity\ClientBundle\Tests;
 
 use \Cardinity\ClientBundle\CardinityClientBundle;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-class AbstractTestCase extends PHPUnit_Framework_TestCase
+class AbstractTestCase extends TestCase
 {
     protected function getContainer(array $config = array(), KernelInterface $kernel = null)
     {
@@ -19,7 +20,7 @@ class AbstractTestCase extends PHPUnit_Framework_TestCase
                 ->method('getBundles')
                 ->will($this->returnValue(array()));
         }
-        
+
         $bundle = new CardinityClientBundle($kernel);
         $extension = $bundle->getContainerExtension();
         $container = new ContainerBuilder();

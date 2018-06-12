@@ -39,15 +39,15 @@ class PaymentControllerTest extends WebTestCase
      */
     public function testProcess($crawler)
     {
-        $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('credit_card');
+        $csrfToken = $this->client->getContainer()->get('security.csrf.token_manager')->getToken('credit_card');
 
         $form = $crawler->selectButton('Save')->form();
 
         $form['credit_card[holder]'] = 'John Deer';
         $form['credit_card[pan]'] = '4111111111111111';
-        $form['credit_card[exp_year]'] = 2018;
-        $form['credit_card[exp_month]'] = 1;
-        $form['credit_card[cvc]'] = '123';
+        $form['credit_card[exp_year]'] = 2021;
+        $form['credit_card[exp_month]'] = 12;
+        $form['credit_card[cvc]'] = '456';
         $form['credit_card[_token]'] = $csrfToken;
 
         $this->client->submit($form);
