@@ -1,4 +1,5 @@
 <?php
+
 namespace Cardinity\ClientBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;

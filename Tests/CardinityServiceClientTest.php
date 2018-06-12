@@ -1,4 +1,5 @@
 <?php
+
 namespace Cardinity\ClientBundle\Tests;
 
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
@@ -16,11 +17,7 @@ class CardinityServiceClientTest extends AbstractTestCase
 
     public function testCardinityClientInstance()
     {
-        //$client = $this->getContainer()->get('cardinity_client.service.client');
-        $client = Client::create([
-            'consumerKey' => $this->container->getParameter('cardinity_client.consumer_key'),
-            'consumerSecret' => $this->container->getParameter('cardinity_client.consumer_secret'),
-        ]);
+        $client = $this->getContainer()->get('cardinity_client.service.client');
         $this->assertInstanceOf('\Cardinity\Client', $client);
     }
 }

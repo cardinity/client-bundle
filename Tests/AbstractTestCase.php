@@ -1,4 +1,5 @@
 <?php
+
 namespace Cardinity\ClientBundle\Tests;
 
 use \Cardinity\ClientBundle\CardinityClientBundle;
@@ -19,7 +20,7 @@ class AbstractTestCase extends PHPUnit_Framework_TestCase
                 ->method('getBundles')
                 ->will($this->returnValue(array()));
         }
-        
+
         $bundle = new CardinityClientBundle($kernel);
         $extension = $bundle->getContainerExtension();
         $container = new ContainerBuilder();

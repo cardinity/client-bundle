@@ -1,4 +1,5 @@
 <?php
+
 namespace Cardinity\ClientBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -23,8 +24,7 @@ class CreditCardType extends AbstractType
                 'choices' => $this->months()
             ])
             ->add('cvc')
-            ->add('save', SubmitType::class)
-        ;
+            ->add('save', SubmitType::class);
     }
 
     public function getName()
@@ -35,7 +35,7 @@ class CreditCardType extends AbstractType
     private function years()
     {
         $return = [];
-        for ($i = date('Y'); $i <= date('Y')+7; $i++) {
+        for ($i = date('Y'); $i <= date('Y') + 7; $i++) {
             $return[$i] = $i;
         }
         return $return;
