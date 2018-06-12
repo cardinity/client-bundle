@@ -2,10 +2,6 @@
 
 namespace Cardinity\ClientBundle\Tests;
 
-use GuzzleHttp\Subscriber\Oauth\Oauth1;
-use Symfony\Component\DependencyInjection\Container;
-use Cardinity\Client;
-
 class CardinityServiceClientTest extends AbstractTestCase
 {
     private $container;
