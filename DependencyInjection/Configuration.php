@@ -16,10 +16,10 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('cardinity_client');
+        $treeBuilder = new TreeBuilder('cardinity_client');
+        $rootNode = $treeBuilder;
 
-        $rootNode
+        $rootNode->getRootNode()
             ->children()
                 ->scalarNode('consumer_key')
                    ->isRequired()
